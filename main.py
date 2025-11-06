@@ -3,6 +3,9 @@ A minimal example of building a Deep Agent using DeepSeek as the model backend,
 with support for subagents.
 """
 
+from tavily.tavily import TavilyClient
+
+
 from langgraph.graph.state import CompiledStateGraph
 
 
@@ -21,7 +24,7 @@ tavily_api_key = os.getenv("TAVILY_API_KEY")
 # -----------------------------
 # Step 2: Initialize Tavily client
 # -----------------------------
-tavily_client = TavilyClient(api_key=tavily_api_key)
+tavily_client: TavilyClient = TavilyClient(api_key=tavily_api_key)
 
 def internet_search(
     query: str,
