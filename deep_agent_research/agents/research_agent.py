@@ -10,17 +10,26 @@ logger = logging.getLogger(__name__)
 class ResearchAgent:
     """研究代理类"""
     
-    def __init__(self, anthropic_api_key: Optional[str] = None, tavily_api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, tavily_api_key: Optional[str] = None, 
+                 model_provider: Literal["anthropic", "openai", "deepseek"] = "anthropic"):
         """
         初始化研究代理
         
         Args:
-            anthropic_api_key: Anthropic API密钥
+            api_key: 模型提供商的API密钥
             tavily_api_key: Tavily API密钥
+            model_provider: 模型提供商 ("anthropic", "openai", "deepseek")
         """
         # 设置API密钥
-        if anthropic_api_key:
-            os.environ["ANTHROPIC_API_KEY"] = anthropic_api_key
+        self.model_provider = model_provider
+        if api_key:
+            if model_provider == "anthropic":
+                os.environ["ANTHROPIC_API_KEY"] = api_key
+            elif model_provider == "openai":
+                os.environ["OPENAI_API_KEY"] = api_key
+            elif model_provider == "deepseek":
+                os.environ["DEEPSEEK_API_KEY"] = api_key
+        
         if tavily_api_key:
             os.environ["TAVILY_API_KEY"] = tavily_api_key
             
@@ -49,10 +58,27 @@ class ResearchAgent:
         if self.deepagents_available:
             try:
                 from deepagents import create_deep_agent
-                self.agent = create_deep_agent(
-                    tools=[self._internet_search_wrapper],
-                    system_prompt=self.system_prompt
-                )
+                # 根据模型提供商设置相应的模型
+                if model_provider == "deepseek":
+                    model_name = "deepseek-chat"  # DeepSeek常用模型
+                elif model_provider == "anthropic":
+                    model_name = "claude-3-opus-20240229"  # Anthropic常用模型
+                elif model_provider == "openai":
+                    model_name = "gpt-4-turbo"  # OpenAI常用模型
+                else:
+                    model_name = None
+                
+                # 创建代理时指定模型
+                agent_kwargs = {
+                    "tools": [self._internet_search_wrapper],
+                    "system_prompt": self.system_prompt
+                }
+                
+                # 如果deepagents支持model参数，则添加
+                if model_name:
+                    agent_kwargs["model"] = model_name
+                    
+                self.agent = create_deep_agent(**agent_kwargs)
             except Exception as e:
                 logger.warning(f"创建deepagents代理时出错: {e}")
                 self.agent = None
@@ -95,7 +121,7 @@ class ResearchAgent:
         执行研究任务
         
         Args:
-            query: 研究查询
+            query: 砠究查询
             
         Returns:
             研究结果
@@ -103,7 +129,7 @@ class ResearchAgent:
         if self.agent:
             # 使用deepagents代理
             try:
-                logger.info(f"使用deepagents代理研究查询: {query}")
+                logger.info(f"使用{self.model_provider}模型研究查询: {query}")
                 
                 result = self.agent.invoke({
                     "messages": [{"role": "user", "content": query}]
@@ -114,7 +140,7 @@ class ResearchAgent:
                 logger.info("研究完成")
                 return final_content
             except Exception as e:
-                logger.error(f"使用deepagents代理时发生错误: {str(e)}")
+                logger.error(f"使用{self.model_provider}模型代理时发生错误: {str(e)}")
                 # 回退到简化版功能
                 return self._simple_research(query)
         else:
@@ -141,8 +167,8 @@ class ResearchAgent:
             report = f"# 研究报告：{query}\n\n"
             report += "## 搜索结果摘要\n\n"
             report += search_result
-            report += "\n## 结论\n\n"
-            report += "这是基于网络搜索结果的简要报告。如需更深入的分析，请安装deepagents库以启用高级功能。"
+            report += f"\n## 结论\n\n"
+            report += f"这是基于网络搜索结果的简要报告，使用{self.model_provider}模型提供商。如需更深入的分析，请安装deepagents库以启用高级功能。"
             
             logger.info("简化版研究完成")
             return report
@@ -151,15 +177,17 @@ class ResearchAgent:
             return f"研究失败: {str(e)}"
 
 # 创建代理实例的便捷函数
-def create_research_agent(anthropic_api_key: Optional[str] = None, tavily_api_key: Optional[str] = None) -> ResearchAgent:
+def create_research_agent(api_key: Optional[str] = None, tavily_api_key: Optional[str] = None, 
+                         model_provider: Literal["anthropic", "openai", "deepseek"] = "anthropic") -> ResearchAgent:
     """
     创建研究代理实例
     
     Args:
-        anthropic_api_key: Anthropic API密钥
+        api_key: 模型提供商的API密钥
         tavily_api_key: Tavily API密钥
+        model_provider: 模型提供商 ("anthropic", "openai", "deepseek")
         
     Returns:
         ResearchAgent实例
     """
-    return ResearchAgent(anthropic_api_key, tavily_api_key)
+    return ResearchAgent(api_key, tavily_api_key, model_provider)

@@ -11,7 +11,12 @@ import logging
 from typing import Optional
 
 # 添加项目根目录到Python路径
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
 
 from agents.research_agent import create_research_agent
 from utils.config import get_env_variable, load_environment_variables
@@ -36,10 +41,10 @@ def main():
         default="What is LangGraph?"
     )
     parser.add_argument(
-        "--anthropic-key",
+        "--api-key",
         type=str,
-        help="Anthropic API密钥",
-        default=get_env_variable("ANTHROPIC_API_KEY")
+        help="模型提供商API密钥",
+        default=None
     )
     parser.add_argument(
         "--tavily-key",
@@ -47,20 +52,42 @@ def main():
         help="Tavily API密钥",
         default=get_env_variable("TAVILY_API_KEY")
     )
+    parser.add_argument(
+        "--model-provider",
+        type=str,
+        choices=["anthropic", "openai", "deepseek"],
+        help="模型提供商",
+        default="deepseek"
+    )
     
     args = parser.parse_args()
     
+    # 获取API密钥
+    api_key = args.api_key
+    if not api_key:
+        if args.model_provider == "anthropic":
+            api_key = get_env_variable("ANTHROPIC_API_KEY")
+        elif args.model_provider == "openai":
+            api_key = get_env_variable("OPENAI_API_KEY")
+        elif args.model_provider == "deepseek":
+            api_key = get_env_variable("DEEPSEEK_API_KEY")
+    
     # 检查API密钥
+    if not api_key:
+        logger.error(f"缺少{args.model_provider} API密钥。请通过--api-key参数或相应的环境变量提供。")
+        return 1
+        
     if not args.tavily_key:
         logger.error("缺少Tavily API密钥。请通过--tavily-key参数或TAVILY_API_KEY环境变量提供。")
         return 1
     
     try:
         # 创建研究代理
-        logger.info("正在初始化研究代理...")
+        logger.info(f"正在初始化研究代理，使用{args.model_provider}模型...")
         agent = create_research_agent(
-            anthropic_api_key=args.anthropic_key,
-            tavily_api_key=args.tavily_key
+            api_key=api_key,
+            tavily_api_key=args.tavily_key,
+            model_provider=args.model_provider
         )
         
         # 执行研究

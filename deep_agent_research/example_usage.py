@@ -17,7 +17,15 @@ def main():
     print("=" * 50)
     
     # 检查API密钥
+    deepseek_key = os.getenv("DEEPSEEK_API_KEY")
     tavily_key = os.getenv("TAVILY_API_KEY")
+    
+    if not deepseek_key:
+        print("警告：未找到DEEPSEEK_API_KEY环境变量")
+        print("请设置DEEPSEEK_API_KEY环境变量以获得完整的功能")
+        print("示例：export DEEPSEEK_API_KEY=your_api_key_here")
+        return
+    
     if not tavily_key:
         print("警告：未找到TAVILY_API_KEY环境变量")
         print("请设置TAVILY_API_KEY环境变量以获得完整的功能")
@@ -25,9 +33,13 @@ def main():
         return
     
     try:
-        # 创建研究代理
-        print("正在创建研究代理...")
-        agent = create_research_agent(tavily_api_key=tavily_key)
+        # 创建研究代理，使用DeepSeek模型
+        print("正在创建研究代理，使用DeepSeek模型...")
+        agent = create_research_agent(
+            api_key=deepseek_key,
+            tavily_api_key=tavily_key,
+            model_provider="deepseek"
+        )
         
         # 检查代理是否成功创建
         if not agent.agent:
