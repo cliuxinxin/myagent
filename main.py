@@ -87,8 +87,12 @@ if __name__ == "__main__":
     query = "What is LangGraph?"
     print(f"🧭 Running research query: {query}\n")
 
-    result = agent.invoke({"messages": [{"role": "user", "content": query}]})
+    for step in agent.stream(
+            {"messages": [{"role": "user", "content": query}]},
+            stream_mode="values"
+        ):
+        # 打印每一步的最新消息
+        latest_message = step["messages"][-1]
+        print(f"\n{latest_message.type}: {latest_message.content}")
 
-    final_message = result["messages"][-1].content
-    print("📘 Research Report:\n")
-    print(final_message)
+
