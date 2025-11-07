@@ -1,13 +1,11 @@
 """
 deep_research_agent/main.py
 
-Deep Agent example using DeepSeek model and LangSmith tracing
-(compatible with current deepagents versions).
+Deep Agent example using DeepSeek model with subagents for delegated research tasks.
 """
 
 import os
 from typing import Literal
-
 from dotenv import load_dotenv
 from tavily import TavilyClient
 from deepagents import create_deep_agent
@@ -18,7 +16,7 @@ from deepagents import create_deep_agent
 load_dotenv()
 
 # -----------------------------
-# Step 3: Initialize Tavily search client
+# Step 2: Initialize Tavily search client
 # -----------------------------
 tavily_client = TavilyClient()
 
@@ -37,30 +35,81 @@ def internet_search(
     )
 
 # -----------------------------
-# Step 4: Define system instructions
+# Step 3: Define subagents
 # -----------------------------
-research_instructions = """You are an expert researcher using the DeepSeek model.
-Conduct thorough investigations and produce concise, well-structured reports.
+deep_research_subagent = {
+    "name": "deep-researcher",
+    "model": "deepseek-chat",
+    "description": (
+        "Conducts in-depth, multi-step research using the internet_search tool. "
+        "Use when the question requires synthesis from multiple sources."
+    ),
+    "system_prompt": """You are a specialized research subagent.
 
-You may use the following tool:
-- internet_search(query, max_results=5, topic='general'): Search the web for relevant information.
+Your task:
+1. Break down complex research questions into specific, searchable queries.
+2. Use the internet_search tool for each query.
+3. Synthesize findings into a concise, structured report.
+
+Output format:
+- Executive Summary (2–3 paragraphs)
+- Key Findings (bullet points)
+- Source List (URLs only)
+
+Constraints:
+- Keep under 500 words.
+- Do NOT include raw tool output or unnecessary details.""",
+    "tools": [internet_search],
+}
+
+quick_lookup_subagent = {
+    "name": "quick-lookup",
+    "model": "deepseek-chat",
+    "description": (
+        "Handles short factual or definition-style queries. "
+        "Use when the user asks for a simple explanation or definition."
+    ),
+    "system_prompt": """You are a concise assistant.
+
+Provide brief, accurate answers to factual questions.
+Use internet_search only when necessary.
+Limit response to 150 words.""",
+    "tools": [internet_search],
+}
+
+subagents = [deep_research_subagent, quick_lookup_subagent]
+
+# -----------------------------
+# Step 4: Define system instructions for main agent
+# -----------------------------
+research_instructions = """You are an expert research coordinator using the DeepSeek model.
+
+Your role:
+- Plan and oversee research projects.
+- Delegate complex or multi-step research tasks to subagents using the task() tool.
+- Use subagents to maintain clean context and concise final outputs.
+
+Available subagents:
+- deep-researcher: for in-depth, multi-source research.
+- quick-lookup: for short factual lookups.
 """
 
 # -----------------------------
-# Step 5: Create the agent
+# Step 5: Create the main agent
 # -----------------------------
 agent = create_deep_agent(
-    model="deepseek-chat",  # Use DeepSeek via OpenAI API
+    model="deepseek-chat",
     tools=[internet_search],
     system_prompt=research_instructions,
+    subagents=subagents,
 )
 
 # -----------------------------
 # Step 6: Run the agent
 # -----------------------------
 if __name__ == "__main__":
-    query = "What is LangGraph?"
-    print(f"🔍 Running research on: {query}\n")
+    query = "荷兰安世半导体纠纷问题是怎么回事？"
+    print(f"🔍 Running delegated research on: {query}\n")
 
     result = agent.invoke({"messages": [{"role": "user", "content": query}]})
 
