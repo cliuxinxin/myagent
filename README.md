@@ -6,6 +6,20 @@
 
 ## 🚀 快速启动
 
+### 方法一：一键启动（推荐）
+
+使用启动脚本一键启动所有服务：
+
+```bash
+# 一键启动所有服务
+./start.sh
+
+# 访问Streamlit前端
+# 打开浏览器访问: http://localhost:8501
+```
+
+### 方法二：手动启动
+
 ```bash
 # 1. 安装依赖
 pip install -r requirements.txt
@@ -16,8 +30,11 @@ PYTHONPATH=/Users/liuxinxin/Documents/GitHub/myagent venv/bin/python src/indexer
 # 3. 启动API服务器（终端2）
 PYTHONPATH=/Users/liuxinxin/Documents/GitHub/myagent venv/bin/uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 
-# 4. 访问API文档
-# 打开浏览器访问: http://127.0.0.1:8000/docs
+# 4. 启动Streamlit前端（终端3）
+PYTHONPATH=/Users/liuxinxin/Documents/GitHub/myagent venv/bin/streamlit run src/frontend.py
+
+# 5. 访问前端界面
+# 打开浏览器访问: http://localhost:8501
 ```
 
 ## 核心架构
@@ -41,13 +58,15 @@ knowledge-alchemist-langgraph/
 ├── .env.example
 ├── config.py # 路径和模型的主要配置
 ├── requirements.txt
+├── start.sh # 一键启动脚本
 ├── src/
 │ ├── __init__.py
 │ ├── storage.py # 管理推理索引的SQLite数据库
 │ ├── prompts.py # 存储所有核心系统提示
 │ ├── indexer.py # 构建和监视索引的逻辑
 │ ├── graph.py # 核心LangGraph定义和节点
-│ └── main.py # 通过API暴露逻辑的FastAPI服务器
+│ ├── main.py # 通过API暴露逻辑的FastAPI服务器
+│ └── frontend.py # Streamlit前端界面
 └── data/ # 存储SQLite数据库的目录
 └── reasoning_index.db
 
@@ -171,7 +190,16 @@ curl http://127.0.0.1:8000/health
 
 # 检查API文档
 curl http://127.0.0.1:8000/
+
+# 检查Streamlit前端
+curl http://localhost:8501/healthz
 ```
+
+### 服务访问地址
+
+- **Streamlit前端**: http://localhost:8501
+- **API服务器**: http://127.0.0.1:8000
+- **API文档**: http://127.0.0.1:8000/docs
 
 ### 日志查看
 

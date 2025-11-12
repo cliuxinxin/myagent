@@ -10,3 +10,5 @@ python-frontmatter
 sqlalchemy
 pydantic
 beautifulsoup4
+streamlit
+requests
