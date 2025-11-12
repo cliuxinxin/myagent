@@ -1,4 +1,12 @@
-deepagents
-tavily-python
+langgraph
+langchain
+langchain-deepseek
+fastapi
+uvicorn[standard]
 python-dotenv
-angchain-deepseek
+watchdog
+rank_bm25
+python-frontmatter
+sqlalchemy
+pydantic
+beautifulsoup4
