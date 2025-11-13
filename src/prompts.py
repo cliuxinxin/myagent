@@ -11,7 +11,7 @@ DISTILLATION_PROMPT_TMPL = """
 - 极其简洁。使用符号(=>, <=>, &, |)、缩写和技术术语。
 - 关注"什么"、"为什么"和"如何"。忽略废话、示例和修辞花饰。
 - 目标是让另一个AI能够仅从指纹中理解文本的核心逻辑。
-- 示例：对于关于异步编程的文本，指纹可能是："异步编程(模型) => 事件循环+协程 -> 非阻塞IO; vs 同步编程(模型) -> 线程阻塞 => 性能问题(IO密集型任务)。"
+- 可以是任何比较好的token，不需要人类可以读懂
 
 提炼以下文本的精髓：
 ---
@@ -80,5 +80,12 @@ SYNTHESIS_PROMPT_TMPL = """
 ---
 
 现在生成新笔记。每个笔记应是一个完整的Markdown块，包括YAML前端信息。
+
+YAML前端信息块应该包含以下内容：
+title: 笔记标题。
+note_type: 笔记类型。
+source: 笔记来源URL。
+created: 笔记创建日期，格式为YYYY-MM-DD。
+tags: 笔记标签列表，用逗号分隔。
 """
 SYNTHESIS_PROMPT = PromptTemplate.from_template(SYNTHESIS_PROMPT_TMPL)

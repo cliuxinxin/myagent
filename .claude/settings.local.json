@@ -9,7 +9,11 @@
       "Bash(venv/bin/pip install:*)",
       "Bash(PYTHONPATH=/Users/liuxinxin/Documents/GitHub/myagent venv/bin/python src/indexer.py)",
       "Bash(PYTHONPATH=/Users/liuxinxin/Documents/GitHub/myagent venv/bin/uvicorn src.main:app --reload --host 0.0.0.0 --port 8000)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(sqlite3:*)",
+      "Read(//private/var/folders/78/tp45tbbn6pn1yvhmk_wnzgvc0000gn/T/**)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)"
     ],
     "deny": [],
     "ask": []

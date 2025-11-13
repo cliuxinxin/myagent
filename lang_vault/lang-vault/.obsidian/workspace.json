@@ -18,105 +18,35 @@
             }
           },
           {
-            "id": "74c768237dbb88be",
+            "id": "86cb3b806b142b58",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LangGraph概述.md",
+                "file": "LangGraph - Agent Orchestration Framework.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "LangGraph概述"
+              "title": "LangGraph - Agent Orchestration Framework"
             }
           },
           {
-            "id": "bbe7c69037f2d618",
+            "id": "2e1be1ce97db7cce",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LangGraph持久化执行.md",
+                "file": "Durable Execution in Agent Systems.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "LangGraph持久化执行"
-            }
-          },
-          {
-            "id": "6d4ed3b8c5128fde",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "人在回路代理交互.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "人在回路代理交互"
-            }
-          },
-          {
-            "id": "2713e50a4299185c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "LangGraph生态系统集成.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LangGraph生态系统集成"
-            }
-          },
-          {
-            "id": "71e556b381541a38",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "LangGraph Installation Methods.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LangGraph Installation Methods"
-            }
-          },
-          {
-            "id": "8f1b0cfd004f7d16",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "LLM提供商集成要求.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LLM提供商集成要求"
-            }
-          },
-          {
-            "id": "9e6bdce291e41767",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "LangGraph Installation Methods.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LangGraph Installation Methods"
+              "title": "Durable Execution in Agent Systems"
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -189,7 +119,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "LangGraph Installation Methods.md",
+                "file": "Durable Execution in Agent Systems.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +129,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for LangGraph Installation Methods"
+              "title": "Backlinks for Durable Execution in Agent Systems"
             }
           },
           {
@@ -208,12 +138,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "LangGraph Installation Methods.md",
+                "file": "Durable Execution in Agent Systems.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from LangGraph Installation Methods"
+              "title": "Outgoing links from Durable Execution in Agent Systems"
             }
           },
           {
@@ -237,13 +167,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "LangGraph Installation Methods.md",
+                "file": "Durable Execution in Agent Systems.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of LangGraph Installation Methods"
+              "title": "Outline of Durable Execution in Agent Systems"
             }
           }
         ]
@@ -264,15 +194,21 @@
       "bases:Create new base": false
     }
   },
-  "active": "9e6bdce291e41767",
+  "active": "2e1be1ce97db7cce",
   "lastOpenFiles": [
-    "LLM提供商集成要求.md",
-    "Untitled.md",
-    "LangGraph生态系统集成.md",
-    "LangGraph Installation Methods.md",
-    "人在回路代理交互.md",
-    "LangGraph持久化执行.md",
+    "LangGraph - Agent Orchestration Framework.md",
+    "Durable Execution in Agent Systems.md",
     "LangGraph概述.md",
+    "LangGraph状态设计原则.md",
+    "LangGraph中的中断和人工审核.md",
+    "LangGraph代理构建五步法.md",
+    "LangGraph持久化执行.md",
+    "人在回路代理交互.md",
+    "LLM提供商集成要求.md",
+    "LangGraph错误处理策略.md",
+    "LangGraph生态系统集成.md",
+    "LangGraph节点设计原则.md",
+    "LangGraph Installation Methods.md",
     "测试笔记.md",
     "Welcome.md"
   ]
