@@ -79,6 +79,16 @@ SYNTHESIS_PROMPT_TMPL = """
 现有上下文笔记（可以参考，也可以不用参考，这是其他ai选出来的比较相近的资料）：
 {context_notes}
 
-请根据以上内容生成结果。
+请根据以上内容生成结果。输出必须是有效的JSON格式，包含"knowledge_points"数组，每个知识点对象包含title和content字段。
+
+输出格式示例：
+{{
+  "knowledge_points": [
+    {{
+      "title": "核心概念名称",
+      "content": "完整的Markdown内容，包括YAML前端信息块"
+    }}
+  ]
+}}
 """
 SYNTHESIS_PROMPT = PromptTemplate.from_template(SYNTHESIS_PROMPT_TMPL)

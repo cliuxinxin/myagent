@@ -6,6 +6,7 @@ import streamlit as st
 import requests
 import json
 from datetime import datetime
+from pathlib import Path
 
 # 页面配置
 st.set_page_config(
@@ -76,7 +77,7 @@ def process_article(text, source_url=""):
 
         if response.status_code == 200:
             result = response.json()
-            return result.get("generated_note", ""), None
+            return result.get("generated_note", []), None
         else:
             return None, f"API错误: {response.status_code} - {response.text}"
 
@@ -86,6 +87,41 @@ def process_article(text, source_url=""):
         return None, "无法连接到API服务器，请确保服务正在运行"
     except Exception as e:
         return None, f"处理文章时出错: {str(e)}"
+
+def save_knowledge_point(knowledge_point, save_folder="lang_vault/lang-vault"):
+    """保存知识点到文件"""
+    try:
+        # 确保保存文件夹存在
+        save_path = Path(save_folder)
+        save_path.mkdir(parents=True, exist_ok=True)
+
+        # 清理文件名，移除不合法字符
+        safe_title = knowledge_point["title"]
+        # 移除或替换不合法的文件名字符
+        illegal_chars = ['<', '>', ':', '"', '|', '?', '*', '/', '\\']
+        for char in illegal_chars:
+            safe_title = safe_title.replace(char, '_')
+
+        # 创建文件名
+        filename = f"{safe_title}.md"
+        file_path = save_path / filename
+
+        # 检查文件是否已存在，如果存在则添加数字后缀
+        counter = 1
+        original_path = file_path
+        while file_path.exists():
+            stem = original_path.stem
+            file_path = original_path.parent / f"{stem}_{counter}.md"
+            counter += 1
+
+        # 写入文件
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(knowledge_point["content"])
+
+        return str(file_path)
+
+    except Exception as e:
+        return f"保存失败: {str(e)}"
 
 def main():
     # 页面标题
@@ -123,75 +159,148 @@ def main():
         """)
 
     # 主内容区域
-    col1, col2 = st.columns([1, 1])
+    st.header("📝 输入文章")
 
-    with col1:
-        st.header("📝 输入文章")
+    # 文章输入
+    article_text = st.text_area(
+        "文章内容",
+        height=200,
+        placeholder="请输入要处理的文章内容...",
+        help="输入您想要分析和关联到知识库的文章内容"
+    )
 
-        # 文章输入
-        article_text = st.text_area(
-            "文章内容",
-            height=300,
-            placeholder="请输入要处理的文章内容...",
-            help="输入您想要分析和关联到知识库的文章内容"
-        )
+    # 来源URL
+    source_url = st.text_input(
+        "来源URL (可选)",
+        placeholder="https://example.com/article",
+        help="文章的来源链接，用于引用"
+    )
 
-        # 来源URL
-        source_url = st.text_input(
-            "来源URL (可选)",
-            placeholder="https://example.com/article",
-            help="文章的来源链接，用于引用"
-        )
-
-        # 处理按钮
-        if st.button("🧪 处理文章", type="primary", use_container_width=True):
-            if not article_text.strip():
-                st.error("请输入文章内容")
+    # 处理按钮
+    if st.button("🧪 处理文章", type="primary", use_container_width=True):
+        if not article_text.strip():
+            st.error("请输入文章内容")
+        else:
+            if not check_api_health():
+                st.error("API服务器未运行，请先启动服务")
             else:
-                if not check_api_health():
-                    st.error("API服务器未运行，请先启动服务")
+                result, error = process_article(article_text, source_url)
+
+                if error:
+                    st.markdown(f'<div class="error-box">{error}</div>', unsafe_allow_html=True)
                 else:
-                    result, error = process_article(article_text, source_url)
+                    st.session_state.generated_note = result
+                    st.session_state.processed_at = datetime.now()
+                    st.success("✅ 文章处理完成！")
 
-                    if error:
-                        st.markdown(f'<div class="error-box">{error}</div>', unsafe_allow_html=True)
+    # 生成的笔记部分
+    if "generated_note" in st.session_state:
+        st.markdown("---")
+
+        # 批量操作区域（移到顶部）
+        knowledge_points = st.session_state.generated_note
+
+        if isinstance(knowledge_points, list) and len(knowledge_points) > 0:
+            # 批量操作标题和按钮
+            st.markdown("### 🗂️ 批量操作")
+            col_save_all, col_download_all = st.columns([1, 1])
+
+            with col_save_all:
+                if st.button("💾 保存所有知识点", type="primary", use_container_width=True):
+                    saved_count = 0
+                    failed_count = 0
+                    for kp in knowledge_points:
+                        result = save_knowledge_point(kp)
+                        if result.startswith("保存失败"):
+                            failed_count += 1
+                        else:
+                            saved_count += 1
+
+                    if failed_count == 0:
+                        st.success(f"✅ 成功保存所有 {saved_count} 个知识点！")
                     else:
-                        st.session_state.generated_note = result
-                        st.session_state.processed_at = datetime.now()
-                        st.success("✅ 文章处理完成！")
+                        st.warning(f"⚠️ 成功保存 {saved_count} 个知识点，失败 {failed_count} 个")
 
-    with col2:
-        st.header("📖 生成的笔记")
+            with col_download_all:
+                # 创建合并下载
+                all_content = []
+                for kp in knowledge_points:
+                    all_content.append(f"# {kp.get('title', '未知标题')}\n\n")
+                    all_content.append(kp.get('content', ''))
+                    all_content.append("\n\n---\n\n")
 
-        if "generated_note" in st.session_state:
-            # 显示处理时间
-            if "processed_at" in st.session_state:
-                st.caption(f"处理时间: {st.session_state.processed_at.strftime('%Y-%m-%d %H:%M:%S')}")
-
-            # 显示生成的笔记
-            st.markdown(st.session_state.generated_note)
-
-            # 操作按钮
-            col_copy, col_download = st.columns(2)
-
-            with col_copy:
-                if st.button("📋 复制到剪贴板", use_container_width=True):
-                    st.code(st.session_state.generated_note, language="markdown")
-                    st.success("已复制到剪贴板")
-
-            with col_download:
-                # 创建下载链接
+                combined_content = "".join(all_content)
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                filename = f"generated_note_{timestamp}.md"
+                filename = f"all_knowledge_points_{timestamp}.md"
+
                 st.download_button(
-                    label="💾 下载笔记",
-                    data=st.session_state.generated_note,
+                    label="📥 下载所有知识点",
+                    data=combined_content,
                     file_name=filename,
                     mime="text/markdown",
                     use_container_width=True
                 )
+
+            st.markdown("---")
+
+        # 生成的笔记标题
+        st.header("📖 生成的笔记")
+
+        # 显示处理时间
+        if "processed_at" in st.session_state:
+            st.caption(f"处理时间: {st.session_state.processed_at.strftime('%Y-%m-%d %H:%M:%S')}")
+
+        # 检查生成的笔记是否为结构化数据
+        if isinstance(knowledge_points, list) and len(knowledge_points) > 0:
+            # 显示知识点数量
+            st.info(f"📚 生成了 {len(knowledge_points)} 个知识点")
+
+            # 逐个显示知识点
+            for i, kp in enumerate(knowledge_points):
+                with st.expander(f"📝 知识点 {i+1}: {kp.get('title', '未知标题')}", expanded=i==0):
+                    # 显示标题
+                    st.subheader(kp.get('title', '未知标题'))
+
+                    # 显示内容
+                    content = kp.get('content', '')
+                    if content:
+                        st.markdown(content)
+                    else:
+                        st.error("内容为空")
+
+                    # 保存按钮
+                    col_save_single, col_copy = st.columns([1, 1])
+
+                    with col_save_single:
+                        if st.button(f"💾 保存此知识点", key=f"save_{i}"):
+                            result = save_knowledge_point(kp)
+                            if result.startswith("保存失败"):
+                                st.error(result)
+                            else:
+                                st.success(f"✅ 已保存到: {result}")
+
+                    with col_copy:
+                        if st.button(f"📋 复制内容", key=f"copy_{i}"):
+                            st.code(content, language="markdown")
+                            st.success("已复制到剪贴板")
+
+                    st.markdown("---")
+
         else:
-            st.info("👆 请在左侧输入文章内容并点击'处理文章'按钮")
+            # 兼容旧格式
+            st.warning("⚠️ 未识别到结构化知识点，显示原始内容")
+            st.markdown(str(knowledge_points))
+
+            # 兼容旧格式的下载按钮
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"generated_note_{timestamp}.md"
+            st.download_button(
+                label="💾 下载笔记",
+                data=str(knowledge_points),
+                file_name=filename,
+                mime="text/markdown",
+                use_container_width=True
+            )
 
     # 示例部分
     st.markdown("---")

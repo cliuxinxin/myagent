@@ -136,10 +136,31 @@ def synthesize_note_node(state: KnowledgeAlchemistState) -> Dict[str, Any]:
     
     # 生成最终笔记
     response = llm_instance.invoke(prompt)
-    final_note = response.content if hasattr(response, 'content') else str(response)
-    # 确保笔记是字符串
-    if not isinstance(final_note, str):
-        final_note = str(final_note)
+    response_text = response.content if hasattr(response, 'content') else str(response)
+    # 确保响应是字符串
+    if not isinstance(response_text, str):
+        response_text = str(response_text)
+
+    # 尝试解析JSON响应
+    try:
+        # 清理响应文本，移除可能的markdown代码块标记
+        cleaned_text = response_text.strip()
+        if cleaned_text.startswith('```json'):
+            cleaned_text = cleaned_text[7:]
+        if cleaned_text.endswith('```'):
+            cleaned_text = cleaned_text[:-3]
+        cleaned_text = cleaned_text.strip()
+
+        parsed_response = json.loads(cleaned_text)
+        final_note = parsed_response.get("knowledge_points", [])
+    except (json.JSONDecodeError, Exception) as e:
+        print(f"解析JSON响应时出错: {e}")
+        # 如果解析失败，返回原始文本作为单个知识点
+        final_note = [{
+            "title": "生成的笔记",
+            "content": response_text
+        }]
+
     return {"final_note": final_note}
 
 

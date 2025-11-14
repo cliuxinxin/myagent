@@ -3,7 +3,7 @@ FastAPI服务器，通过API暴露LangGraph逻辑。
 """
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List, Dict, Any, Union
 
 from src.graph import process_article
 
@@ -15,6 +15,12 @@ app = FastAPI(
 )
 
 
+# 定义知识点模型
+class KnowledgePoint(BaseModel):
+    title: str
+    content: str
+
+
 # 定义请求和响应模型
 class ArticleRequest(BaseModel):
     text: str
@@ -22,7 +28,7 @@ class ArticleRequest(BaseModel):
 
 
 class ArticleResponse(BaseModel):
-    generated_note: str
+    generated_note: Union[List[KnowledgePoint], str]  # 支持新格式（列表）和旧格式（字符串）
 
 
 # API端点

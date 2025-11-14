@@ -1441,12 +1441,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "内存优化策略.md",
+                "file": "LangGraph节点级测试.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "内存优化策略"
+              "title": "LangGraph节点级测试"
             }
           }
         ],
@@ -1600,8 +1600,23 @@
   },
   "active": "f600cc6382e8ad2c",
   "lastOpenFiles": [
-    "长期记忆实现.md",
+    "LangGraph单元测试模式.md",
+    "LangGraph图定义.md",
+    "LangGraph测试状态管理.md",
+    "LangGraph部分执行测试.md",
+    "LangGraph节点级测试.md",
+    "LangGraph流式处理系统.md",
+    "LangGraph环境配置.md",
+    "LangGraph子图状态设计模式.md",
+    "LangGraph依赖管理.md",
+    "LangGraph配置管理.md",
+    "LangGraph应用结构.md",
+    "LangGraph子图持久化.md",
+    "LangGraph子图调试与监控.md",
+    "LangGraph子图通信模式.md",
+    "LangGraph子图概念.md",
     "内存优化策略.md",
+    "长期记忆实现.md",
     "短期记忆实现.md",
     "LangGraph内存管理.md",
     "非确定性系统调试.md",
@@ -1610,21 +1625,6 @@
     "时间旅行调试.md",
     "中断最佳实践.md",
     "中断使用模式.md",
-    "中断恢复机制.md",
-    "LangGraph中断机制.md",
-    "LangGraph子图流式传输.md",
-    "LangGraph自定义数据流式传输.md",
-    "LangGraph LLM令牌流式传输.md",
-    "LangGraph状态流式传输.md",
-    "LangGraph流式处理系统.md",
-    "任务封装模式.md",
-    "持久化模式.md",
-    "确定性执行.md",
-    "持久执行.md",
-    "LangGraph检查点器实现.md",
-    "LangGraph存储系统.md",
-    "LangGraph状态回放.md",
-    "LangGraph检查点.md",
-    "LangGraph线程模型.md"
+    "中断恢复机制.md"
   ]
 }

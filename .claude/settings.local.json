@@ -13,7 +13,8 @@
       "Bash(sqlite3:*)",
       "Read(//private/var/folders/78/tp45tbbn6pn1yvhmk_wnzgvc0000gn/T/**)",
       "Bash(lsof:*)",
-      "Bash(kill:*)"
+      "Bash(kill:*)",
+      "Bash(PYTHONPATH=/Users/liuxinxin/Documents/GitHub/myagent python:*)"
     ],
     "deny": [],
     "ask": []
