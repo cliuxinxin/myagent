@@ -76,7 +76,7 @@ SYNTHESIS_PROMPT_TMPL = """
 
 新文章内容：
 {new_article}
-现有上下文笔记：
+现有上下文笔记（可以参考，也可以不用参考，这是其他ai选出来的比较相近的资料）：
 {context_notes}
 
 请根据以上内容生成结果。

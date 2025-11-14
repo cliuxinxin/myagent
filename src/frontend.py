@@ -71,7 +71,7 @@ def process_article(text, source_url=""):
             response = requests.post(
                 f"{API_BASE_URL}/process-article",
                 json=payload,
-                timeout=120  # 2分钟超时
+                timeout=600  # 10分钟超时
             )
 
         if response.status_code == 200:

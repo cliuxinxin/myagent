@@ -5,6 +5,7 @@
 import os
 import time
 import hashlib
+import json
 from pathlib import Path
 from typing import Dict, Any
 from watchdog.observers import Observer
@@ -49,25 +50,65 @@ def extract_metadata(file_path: Path) -> Dict[str, Any]:
     }
 
 
+def needs_processing(file_path: Path) -> bool:
+    """检查文件是否需要重新处理。"""
+    try:
+        # 确保使用正确的路径
+        vault_path = Path(config.VAULT_PATH)
+        if not file_path.is_absolute():
+            # 如果是相对路径，转换为相对于vault的绝对路径
+            file_path = vault_path / file_path
+
+        doc_id = str(file_path.relative_to(vault_path))
+        existing_doc = store.get_document(doc_id)
+
+        # 如果文件不在数据库中，需要处理
+        if existing_doc is None:
+            return True
+
+        # 检查文件修改时间
+        current_metadata = extract_metadata(file_path)
+        stored_metadata = json.loads(existing_doc['metadata'])
+
+        # 如果文件修改时间更新，需要处理
+        if current_metadata['modified_time'] > stored_metadata['modified_time']:
+            return True
+
+        # 如果文件大小改变，需要处理
+        if current_metadata['file_size'] != stored_metadata['file_size']:
+            return True
+
+        return False
+    except Exception as e:
+        print(f"检查文件 {file_path} 是否需要处理时出错: {e}")
+        return True  # 出错时默认处理
+
+
 def process_note_file(file_path: Path):
     """处理单个笔记文件，生成指纹并存储。"""
     try:
+        # 检查是否需要处理
+        if not needs_processing(file_path):
+            doc_id = str(file_path.relative_to(config.VAULT_PATH))
+            print(f"跳过未修改的文件: {doc_id}")
+            return
+
         # 读取文件内容
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
-        
+
         # 提取元数据
         metadata = extract_metadata(file_path)
-        
+
         # 生成指纹
         fingerprint_prompt = DISTILLATION_PROMPT.format(text=content)
         response = llm.invoke(fingerprint_prompt)
         fingerprint = response.content if hasattr(response, 'content') else str(response)
-        
+
         # 确保指纹是字符串
         if not isinstance(fingerprint, str):
             fingerprint = str(fingerprint)
-        
+
         # 存储到索引
         doc_id = str(file_path.relative_to(config.VAULT_PATH))
         store.add_or_update_document(
@@ -76,7 +117,7 @@ def process_note_file(file_path: Path):
             fingerprint_text=fingerprint,
             full_text=content
         )
-        
+
         print(f"已处理文件: {doc_id}")
     except Exception as e:
         print(f"处理文件 {file_path} 时出错: {e}")
@@ -85,13 +126,37 @@ def process_note_file(file_path: Path):
 def build_initial_index():
     """构建初始索引。"""
     print("开始构建初始索引...")
-    
+
     # 遍历Vault中的所有.md文件
     vault_path = Path(config.VAULT_PATH)
-    for file_path in vault_path.rglob("*.md"):
+    md_files = list(vault_path.rglob("*.md"))
+    total_files = len(md_files)
+
+    if total_files == 0:
+        print("未找到.md文件")
+        return
+
+    print(f"找到 {total_files} 个.md文件")
+
+    processed_count = 0
+    skipped_count = 0
+
+    for file_path in md_files:
+        # 检查是否需要处理
+        if not needs_processing(file_path):
+            skipped_count += 1
+            continue
+
         process_note_file(file_path)
-    
-    print("初始索引构建完成。")
+        processed_count += 1
+
+        # 显示进度
+        if (processed_count + skipped_count) % 10 == 0:
+            progress = (processed_count + skipped_count) / total_files * 100
+            print(f"进度: {progress:.1f}% ({processed_count + skipped_count}/{total_files})")
+
+    print(f"初始索引构建完成。")
+    print(f"总文件数: {total_files}, 新处理: {processed_count}, 跳过: {skipped_count}")
 
 
 class VaultChangeHandler(FileSystemEventHandler):

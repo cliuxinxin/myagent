@@ -741,30 +741,716 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "归约器 Reducers.md",
+                "file": "LangGraph概述.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "归约器 Reducers"
+              "title": "LangGraph概述"
             }
           },
           {
-            "id": "ac0a5de0baa24750",
+            "id": "2f6f28af7f052b5b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "消息传递 Message Passing.md",
+                "file": "LangGraph核心优势.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "消息传递 Message Passing"
+              "title": "LangGraph核心优势"
+            }
+          },
+          {
+            "id": "36b2d8c307093687",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph生态系统.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph生态系统"
+            }
+          },
+          {
+            "id": "45646d5c6f37bc3b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "代理编排框架.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "代理编排框架"
+            }
+          },
+          {
+            "id": "62176deffc817928",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "有状态代理.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "有状态代理"
+            }
+          },
+          {
+            "id": "2cfff6c29882e14a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph Graph API.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph Graph API"
+            }
+          },
+          {
+            "id": "3e65816cbad7bfe7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph Functional API.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph Functional API"
+            }
+          },
+          {
+            "id": "9388023d6d9e47a7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "MessagesState.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "MessagesState"
+            }
+          },
+          {
+            "id": "a449d1d1705cd698",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "条件边.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "条件边"
+            }
+          },
+          {
+            "id": "0505d4e572cebca8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "工具增强LLM.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "工具增强LLM"
+            }
+          },
+          {
+            "id": "1111736cbb107131",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "工具增强LLM.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "工具增强LLM"
+            }
+          },
+          {
+            "id": "aa70eb7a470e4704",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph节点设计.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph节点设计"
+            }
+          },
+          {
+            "id": "a81c5d9bd8a23935",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph状态设计原则.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph状态设计原则"
+            }
+          },
+          {
+            "id": "94411a612ad836bf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph错误处理策略.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph错误处理策略"
+            }
+          },
+          {
+            "id": "7ef7a1fc099a83b2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "人类在环模式.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "人类在环模式"
+            }
+          },
+          {
+            "id": "0168ace43678bfe9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph工作流分解.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph工作流分解"
+            }
+          },
+          {
+            "id": "6f3d81abe1b80a3f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "工作流与代理区别.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "工作流与代理区别"
+            }
+          },
+          {
+            "id": "15ba35ee474f162e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "增强型LLM架构.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "增强型LLM架构"
+            }
+          },
+          {
+            "id": "288182ec68aeae2d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "MessagesState.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "MessagesState"
+            }
+          },
+          {
+            "id": "8a3fac0ce2a4a762",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "并行化工作流.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "并行化工作流"
+            }
+          },
+          {
+            "id": "1d36829aeb113f3d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "路由工作流.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "路由工作流"
+            }
+          },
+          {
+            "id": "d78f9746bcd4c895",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "编排器-工作者模式.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "编排器-工作者模式"
+            }
+          },
+          {
+            "id": "4083f375e598c748",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "评估器-优化器工作流.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "评估器-优化器工作流"
+            }
+          },
+          {
+            "id": "fa2b8265faf844b3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "工具调用代理.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "工具调用代理"
+            }
+          },
+          {
+            "id": "4fa7e8c175477a55",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph持久化机制.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph持久化机制"
+            }
+          },
+          {
+            "id": "e90c383e07192a0d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph线程模型.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph线程模型"
+            }
+          },
+          {
+            "id": "18afd301f7df3249",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph检查点.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph检查点"
+            }
+          },
+          {
+            "id": "e7d0a5a0a37e24a3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph状态回放.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph状态回放"
+            }
+          },
+          {
+            "id": "ec712579701fb2ea",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph存储系统.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph存储系统"
+            }
+          },
+          {
+            "id": "a6ab5d04d2f339d3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph检查点器实现.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph检查点器实现"
+            }
+          },
+          {
+            "id": "d9d1ecb30de9d7ab",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "持久执行.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "持久执行"
+            }
+          },
+          {
+            "id": "bc629a98da7c15cc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "确定性执行.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "确定性执行"
+            }
+          },
+          {
+            "id": "3d30007ac07239c5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "持久化模式.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "持久化模式"
+            }
+          },
+          {
+            "id": "5f4cf34777e6a513",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "任务封装模式.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "任务封装模式"
+            }
+          },
+          {
+            "id": "7ae88fad18d5100b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph流式处理系统.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph流式处理系统"
+            }
+          },
+          {
+            "id": "1b255f2d0293dc88",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph状态流式传输.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph状态流式传输"
+            }
+          },
+          {
+            "id": "58af48cbb3c9cd05",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph LLM令牌流式传输.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph LLM令牌流式传输"
+            }
+          },
+          {
+            "id": "8d045e6b9d3aebb9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph自定义数据流式传输.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph自定义数据流式传输"
+            }
+          },
+          {
+            "id": "12f8e99dd7935d5b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph子图流式传输.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph子图流式传输"
+            }
+          },
+          {
+            "id": "1331da31ad27b46c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph中断机制.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph中断机制"
+            }
+          },
+          {
+            "id": "ad068a220ec518f2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "中断恢复机制.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "中断恢复机制"
+            }
+          },
+          {
+            "id": "33bbd1f92028851b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "中断使用模式.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "中断使用模式"
+            }
+          },
+          {
+            "id": "35de3752b244362e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "中断最佳实践.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "中断最佳实践"
+            }
+          },
+          {
+            "id": "ee751e56cd87a211",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "时间旅行调试.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "时间旅行调试"
+            }
+          },
+          {
+            "id": "453b6b646f2433fc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph检查点机制.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph检查点机制"
+            }
+          },
+          {
+            "id": "820e4a8d4df2edea",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "状态分支探索.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "状态分支探索"
+            }
+          },
+          {
+            "id": "93059d4f5a5ef95b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "非确定性系统调试.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "非确定性系统调试"
+            }
+          },
+          {
+            "id": "5202517718aaea24",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LangGraph内存管理.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LangGraph内存管理"
+            }
+          },
+          {
+            "id": "86f3e34edab1ce0c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "短期记忆实现.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "短期记忆实现"
+            }
+          },
+          {
+            "id": "15fdd090a68dc076",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "长期记忆实现.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "长期记忆实现"
+            }
+          },
+          {
+            "id": "f600cc6382e8ad2c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "内存优化策略.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "内存优化策略"
             }
           }
         ],
-        "currentTab": 53
+        "currentTab": 102
       }
     ],
     "direction": "vertical"
@@ -912,33 +1598,33 @@
       "bases:Create new base": false
     }
   },
-  "active": "ac0a5de0baa24750",
+  "active": "f600cc6382e8ad2c",
   "lastOpenFiles": [
-    "归约器 Reducers.md",
-    "消息传递 Message Passing.md",
-    "子图状态查看限制.md",
-    "思维链提示的现代应用.md",
-    "状态 State.md",
-    "LangGraph 核心组件.md",
-    "上下文提供在提示工程中的作用.md",
-    "人类在环模式.md",
-    "评估器-优化器模式.md",
-    "明确性在提示工程中的重要性.md",
-    "路由工作流模式.md",
-    "将图作为节点添加模式.md",
-    "工作流与智能体的区别.md",
-    "工作流分解策略.md",
-    "工具调用工作流模式.md",
-    "代理编排框架.md",
-    "从节点调用子图模式.md",
-    "并行处理模式.md",
-    "编排器-工作者模式.md",
-    "预填充AI响应技术.md",
-    "提示链模式.md",
-    "子图输出流式传输.md",
-    "子图持久化配置.md",
-    "子图概念与用途.md",
-    "LangGraph中的长期记忆.md",
-    "LangGraph检查点管理.md"
+    "长期记忆实现.md",
+    "内存优化策略.md",
+    "短期记忆实现.md",
+    "LangGraph内存管理.md",
+    "非确定性系统调试.md",
+    "状态分支探索.md",
+    "LangGraph检查点机制.md",
+    "时间旅行调试.md",
+    "中断最佳实践.md",
+    "中断使用模式.md",
+    "中断恢复机制.md",
+    "LangGraph中断机制.md",
+    "LangGraph子图流式传输.md",
+    "LangGraph自定义数据流式传输.md",
+    "LangGraph LLM令牌流式传输.md",
+    "LangGraph状态流式传输.md",
+    "LangGraph流式处理系统.md",
+    "任务封装模式.md",
+    "持久化模式.md",
+    "确定性执行.md",
+    "持久执行.md",
+    "LangGraph检查点器实现.md",
+    "LangGraph存储系统.md",
+    "LangGraph状态回放.md",
+    "LangGraph检查点.md",
+    "LangGraph线程模型.md"
   ]
 }

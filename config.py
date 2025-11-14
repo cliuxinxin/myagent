@@ -24,4 +24,4 @@ ALCHEMY_LLM_MODEL = "deepseek-chat"
 # 使用BM25获取候选之前要获取的候选数量
 LIBRARIAN_TOP_K = 10
 # LLM重排序后用作上下文的最终文档数量
-FINAL_TOP_K = 3
+FINAL_TOP_K = 5

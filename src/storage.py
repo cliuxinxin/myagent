@@ -6,6 +6,8 @@ import sqlite3
 import json
 from pathlib import Path
 from typing import List, Dict, Any, Optional
+from rank_bm25 import BM25Okapi
+
 
 import config
 
@@ -76,21 +78,44 @@ class ReasoningIndexStore:
             return [dict(row) for row in rows]
 
     def search_by_bm25(self, query: str, top_k: int = config.LIBRARIAN_TOP_K) -> List[Dict[str, Any]]:
-        """
-        使用BM25搜索指纹文本。
-        注意：这是一个简化的实现。在生产环境中，您可能想要使用专门的搜索引擎如Elasticsearch。
-        """
-        # 这里我们使用简单的LIKE查询来模拟BM25搜索
-        # 在实际实现中，您应该使用rank_bm25库或其他搜索引擎
-        with self._get_connection() as conn:
-            conn.row_factory = sqlite3.Row
-            cursor = conn.cursor()
-            search_query = f"%{query}%"
-            cursor.execute("""
-                SELECT * FROM reasoning_index 
-                WHERE fingerprint_text LIKE ? OR full_text LIKE ?
-                ORDER BY LENGTH(fingerprint_text) 
-                LIMIT ?
-            """, (search_query, search_query, top_k))
-            rows = cursor.fetchall()
-            return [dict(row) for row in rows]
+            """
+            使用 BM25 对 fingerprint_text 进行检索与排序。
+            """
+            # 取全部文档
+            with self._get_connection() as conn:
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM reasoning_index")
+                rows = cursor.fetchall()
+
+            if not rows:
+                return []
+
+            # 仅使用 fingerprint_text 构建语料
+            corpus_texts = [
+                (row["fingerprint_text"] or "")
+                for row in rows
+            ]
+
+            # 简单分词，可按需替换为 jieba.lcut
+            tokenized_corpus = [text.split() for text in corpus_texts]
+
+            # 初始化 BM25
+            bm25 = BM25Okapi(tokenized_corpus)
+
+            # 查询处理
+            tokenized_query = query.split()
+
+            # 得分计算
+            scores = bm25.get_scores(tokenized_query)
+
+            # 取 top_k 索引
+            ranked_indices = sorted(
+                range(len(scores)),
+                key=lambda i: scores[i],
+                reverse=True
+            )[:top_k]
+
+            # 组装结果
+            results = [dict(rows[i]) for i in ranked_indices]
+            return results
